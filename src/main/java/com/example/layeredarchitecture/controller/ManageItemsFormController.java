@@ -37,6 +37,8 @@ public class ManageItemsFormController {
     public TableView<ItemTM> tblItems;
     public TextField txtUnitPrice;
     public JFXButton btnAddNewItem;
+    ItemsDAO itemsDAO = new ItemsDAOImpl();
+
 
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -78,7 +80,6 @@ public class ManageItemsFormController {
             while (rst.next()) {
                 tblItems.getItems().add(new ItemTM(rst.getString("code"), rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand")));
             }*/
-            ItemsDAO itemsDAO = new ItemsDAOImpl();
             ArrayList<ItemDTO> allItems = itemsDAO.getallItems();
 
             for (ItemDTO dto: allItems) {
@@ -150,7 +151,6 @@ public class ManageItemsFormController {
             pstm.setString(1, code);
             pstm.executeUpdate();*/
 
-            ItemsDAO itemsDAO = new ItemsDAOImpl();
 
             if (itemsDAO.deleteItems(code)){
                 tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
@@ -226,7 +226,7 @@ public class ManageItemsFormController {
                 pstm.setString(4, code);
                 pstm.executeUpdate();*/
 
-                ItemsDAO itemsDAO = new ItemsDAOImpl();
+                //ItemsDAO itemsDAO = new ItemsDAOImpl();
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
@@ -257,7 +257,7 @@ public class ManageItemsFormController {
             /*Connection connection = DBConnection.getDbConnection().getConnection();
             ResultSet rst = connection.createStatement().executeQuery("SELECT code FROM Item ORDER BY code DESC LIMIT 1;");*/
 
-            ItemsDAO itemsDAO = new ItemsDAOImpl();
+            //ItemsDAO itemsDAO = new ItemsDAOImpl();
             ResultSet rst = itemsDAO.genarateCode();
 
             if (rst.next()) {

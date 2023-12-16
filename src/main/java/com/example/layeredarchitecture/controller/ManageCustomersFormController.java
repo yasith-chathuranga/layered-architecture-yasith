@@ -38,6 +38,7 @@ public class ManageCustomersFormController {
     public TextField txtCustomerAddress;
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
+    CustomerDAO customerDAO = new CustomerDAOImpl();
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -73,7 +74,7 @@ public class ManageCustomersFormController {
 /*            Connection connection = DBConnection.getDbConnection().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery("SELECT * FROM Customer");*/
-            CustomerDAO customerDAO = new CustomerDAOImpl();
+            //CustomerDAO customerDAO = new CustomerDAOImpl();
             ArrayList<CustomerDTO> allCustomer = customerDAO.getAllCustomer();
             for (CustomerDTO dto:allCustomer) {
                 tblCustomers.getItems().add(
@@ -155,7 +156,7 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-                CustomerDAOImpl customerDAO = new CustomerDAOImpl();
+                //CustomerDAOImpl customerDAO = new CustomerDAOImpl();
                 boolean isSaved = customerDAO.saveCustomer(new CustomerDTO(id, name, address));
 
                 if (isSaved) {
@@ -207,7 +208,7 @@ public class ManageCustomersFormController {
         pstm.setString(1, id);
         return pstm.executeQuery().next();*/
 
-        CustomerDAO customerDAO =new CustomerDAOImpl();
+        //CustomerDAO customerDAO =new CustomerDAOImpl();
         return customerDAO.existCustomer(id);
     }
 
@@ -224,7 +225,7 @@ public class ManageCustomersFormController {
             pstm.setString(1, id);
             pstm.executeUpdate();*/
 
-            CustomerDAO customerDAO = new CustomerDAOImpl();
+            //CustomerDAO customerDAO = new CustomerDAOImpl();
 
             if (customerDAO.deleteCustomer(id)) {
                 tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
